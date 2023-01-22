@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const PORT = 3001
 
+app.use(express.json())
+
 const persons = [
     { 
         "id": 1,
@@ -58,6 +60,12 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+app.post('/api/persons', (request, response) => {
+    //add app.use(express.json()) to the top to activate json-parser
+    const person = request.body
+    console.log(person)
+    response.json(person)
+})
 
 app.listen(PORT , () => {
     console.log(`Server is running on port ${PORT}`)
