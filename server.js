@@ -60,11 +60,27 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
+// make a function that allows random id to be generated
+const generateId = () => {
+    const maxId = persons.length > 0
+        ? Math.max(...persons.map(p => p.id))
+        : 0
+    return maxId + 1
+} 
+
 app.post('/api/persons', (request, response) => {
     //add app.use(express.json()) to the top to activate json-parser
-    const person = request.body
+    const body = request.body
+    console.log(body)
+    response.json(body)
+
+    const person = {
+        id: generateId(),
+        name: body.name,
+        number: body.number,
+    }
+
     console.log(person)
-    response.json(person)
 })
 
 app.listen(PORT , () => {
