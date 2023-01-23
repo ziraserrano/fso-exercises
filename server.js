@@ -73,6 +73,14 @@ app.post('/api/persons', (request, response) => {
     const body = request.body
     console.log(body)
     response.json(body)
+    
+
+    // review the code below 
+    if(body.name === persons.name || !body.number){
+        return response.status(404).json({
+            error: 'name taken or number is missing!'
+        })
+    }
 
     const person = {
         id: generateId(),
